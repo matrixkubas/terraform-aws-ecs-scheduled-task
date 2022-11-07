@@ -29,14 +29,9 @@ resource "aws_cloudwatch_event_target" "default" {
   # Contains the Amazon ECS task definition and task count to be used, if the event target is an Amazon ECS task.
   # https://docs.aws.amazon.com/AmazonCloudWatchEvents/latest/APIReference/API_EcsParameters.html
   ecs_target {
-    launch_type         = "FARGATE"
+    launch_type         = "EC2"
     task_count          = var.task_count
     task_definition_arn = aws_ecs_task_definition.default[0].arn
-
-    # Specifies the platform version for the task. Specify only the numeric portion of the platform version, such as 1.1.0.
-    # This structure is used only if LaunchType is FARGATE.
-    # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html
-    platform_version = var.platform_version
 
     # This structure specifies the VPC subnets and security groups for the task, and whether a public IP address is to be used.
     # This structure is relevant only for ECS tasks that use the awsvpc network mode.
